@@ -74,23 +74,27 @@ namespace Notifier {
             //_mainCheckTimer.Stop();
         }
 
+        // set only initial value, this function is not willing to check really.
         private void InitCheck() {
             callbackMsg("initCheck : " + _checkDirectoryPath);
             try {
                 if (String.IsNullOrEmpty(_checkDirectoryPath)) {
                     return;
-                } else {
-                    DirectoryInfo di = new DirectoryInfo(_checkDirectoryPath);
-                    FileInfo[] oldFiles = di.GetFiles(_searchPattern);
+                } 
 
-                    _checkEpkList = new EpkList(oldFiles, oldFiles);
-                }
+                DirectoryInfo di = new DirectoryInfo(_checkDirectoryPath);
+                FileInfo[] oldFiles = di.GetFiles(_searchPattern);
+
+                _checkEpkList = new EpkList(oldFiles, oldFiles);
+
             } catch (Exception ea) {
             }
         }
+
         private void callbackReturn(int value) {
-            Debug.Write("Return Vaue : " + value + "\n");
-            callbackMsg("Return Vaue : " + value + "\n");
+            String msg = "Return Vaue : " + value + "\n"; 
+            
+            Debug.Write(msg); callbackMsg(msg);
         }
 
         public void RestartTimer() {
